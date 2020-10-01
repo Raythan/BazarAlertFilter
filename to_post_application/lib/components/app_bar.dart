@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 PreferredSize retornaAppBar(_appBarTitle) {
   return PreferredSize(
-    preferredSize: Size.fromHeight(100.0), // here the desired height
+    preferredSize: Size.fromHeight(70.0), // here the desired height
     child: AppBar(
       title: Text(_appBarTitle),
       shape: RoundedRectangleBorder(
