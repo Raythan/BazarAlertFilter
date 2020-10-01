@@ -21,7 +21,8 @@ class _PrincipalState extends State<Principal> {
           _selectedIndex,
           retornaBottomNavigatorAndIcons(_selectedIndex),
           _buildPanelTeste(),
-          _appBarTitle),
+          _appBarTitle,
+          context),
       debugShowCheckedModeBanner: false,
     );
   }
