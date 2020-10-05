@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:to_post_application/components/button_form_body.dart';
+import 'package:to_post_application/resources/enviar_email.dart';
+
+import 'text_form_body.dart';
 
 // const TextStyle _textBodyStyle =
 //     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -47,36 +51,37 @@ List<Widget> retornaWidgetsBody(Widget _buildPanelTeste, BuildContext context) {
 // }
 
 Widget retornaBodyContato(BuildContext context) {
+  TextEditingController nomeController = new TextEditingController();
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController sugestaoController = new TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
   BuildContext _context = context;
   return Form(
     key: _formKey,
     child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        TextFormField(
-          validator: (value) {
-            if (value.isEmpty) {
-              return 'Please enter some text';
-            }
-            return null;
-          },
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: RaisedButton(
-            onPressed: () {
-              // Validate returns true if the form is valid, or false
-              // otherwise.
-              if (_formKey.currentState.validate()) {
-                // If the form is valid, display a Snackbar.
-                Scaffold.of(_context)
-                    .showSnackBar(SnackBar(content: Text('Processing Data')));
-              }
-            },
-            child: Text('Submit'),
-          ),
-        ),
+        retornaTextFormNome(nomeController),
+        retornaTextFormEmail(emailController),
+        retornaTextFormSugestao(sugestaoController),
+        retornaButtonFormBody(_formKey, nomeController, emailController,
+            sugestaoController, _context),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(vertical: 10.0),
+        //   child: RaisedButton(
+        //     onPressed: () {
+        //       if (_formKey.currentState.validate()) {
+        //         // Scaffold.of(_context).showSnackBar(SnackBar(
+        //         //     content: Text(
+        //         //         'Obrigado pelo apoio.\r\nSeu envio está sendo processado.')));
+        //         enviarEmail(nomeController.text, emailController.text,
+        //             sugestaoController.text, context);
+        //       }
+        //     },
+        //     child: Text('Enviar!'),
+        //   ),
+        // ),
       ],
     ),
   );
