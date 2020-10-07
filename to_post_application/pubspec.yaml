@@ -12,8 +12,8 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^0.1.3
   mailer: any
-  #sqflite: ^1.3.0 #stable version at the time of publishing this article
-  #path_provider: ^1.6.7 #stable version at the time of publishing this article
+  sqflite: ^1.3.0 #stable version at the time of publishing this article
+  path_provider: ^1.6.7 #stable version at the time of publishing this article
 
 dev_dependencies:
   flutter_test:
@@ -22,7 +22,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   #assets:
-  #   - data/flutter.db
+  #   - lib/resources/flutter.db
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
