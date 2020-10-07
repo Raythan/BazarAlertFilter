@@ -12,11 +12,10 @@ Padding retornaButtonFormBody(
     child: RaisedButton(
       onPressed: () {
         if (_formKey.currentState.validate()) {
-          // Scaffold.of(_context).showSnackBar(SnackBar(
-          //     content: Text(
-          //         'Obrigado pelo apoio.\r\nSeu envio está sendo processado.')));
-          enviarEmail(nomeController.text, emailController.text,
-              sugestaoController.text, context);
+          Scaffold.of(context).showSnackBar(
+              SnackBar(content: Text('Seu envio está sendo processado.')));
+          enviarEmail(
+              nomeController, emailController, sugestaoController, context);
         }
       },
       child: Text('Enviar!'),
