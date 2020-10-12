@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class MemoModel {
   final int id;
   final String title;
@@ -6,11 +8,24 @@ class MemoModel {
   MemoModel({this.id, this.title, this.content});
 
   Map<String, dynamic> toMap() {
-    // used when inserting data to the database
-    return <String, dynamic>{
-      "id": id,
-      "title": title,
-      "content": content,
+    return {
+      'id': id,
+      'title': title,
+      'content': content,
     };
   }
+
+  factory MemoModel.fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
+    return MemoModel(
+      id: map['id'],
+      title: map['title'],
+      content: map['content'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory MemoModel.fromJson(String source) => MemoModel.fromMap(json.decode(source));
 }

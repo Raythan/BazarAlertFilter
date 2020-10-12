@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:to_post_application/components/button_form_body.dart';
-import 'package:to_post_application/resources/enviar_email.dart';
 
 import 'text_form_body.dart';
 
@@ -65,8 +64,7 @@ Widget retornaBodyContato(BuildContext context) {
         retornaTextFormNome(nomeController),
         retornaTextFormEmail(emailController),
         retornaTextFormSugestao(sugestaoController),
-        retornaButtonFormBody(_formKey, nomeController, emailController,
-            sugestaoController, _context),
+        retornaButtonFormBody(_formKey, nomeController, emailController, sugestaoController, _context),
         // Padding(
         //   padding: const EdgeInsets.symmetric(vertical: 10.0),
         //   child: RaisedButton(

@@ -13,21 +13,19 @@ class Principal extends StatefulWidget {
 
 class _PrincipalState extends State<Principal> {
   String _appBarTitle = "Principal";
+  BuildContext context;
+  MaterialApp material;
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: retornaScaffold(
-          _selectedIndex,
-          retornaBottomNavigatorAndIcons(_selectedIndex),
-          _buildPanelTeste(),
-          _appBarTitle,
-          context),
+  Widget build(context) {
+    this.material = MaterialApp(
+      home: retornaScaffold(_selectedIndex, retornaBottomNavigatorAndIcons(_selectedIndex), _buildPanelTeste(), _appBarTitle, context),
       debugShowCheckedModeBanner: false,
     );
+    return this.material;
   }
 
-  void _onItemTapped(int index) {
+  void onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
       _appBarTitle = titles[_selectedIndex];
@@ -40,11 +38,11 @@ class _PrincipalState extends State<Principal> {
       currentIndex: _selectedIndex,
       selectedItemColor: Colors.blue[800],
       unselectedItemColor: Colors.lightBlue,
-      onTap: _onItemTapped,
+      onTap: onItemTapped,
     );
   }
 
-  List<DropDownListExpansible> _data = generateItems(18);
+  List<DropDownListExpansible> _data = generateItems(6);
 
   Widget _buildPanelTeste() {
     return ExpansionPanelList(
