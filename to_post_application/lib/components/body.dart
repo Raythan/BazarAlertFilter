@@ -9,19 +9,17 @@ import 'text_form_body.dart';
 Center retornaBody(List<Widget> _widgetOptions, int _selectedIndex) {
   return Center(
     child: new ListView(
-      children: <Widget>[
-        _widgetOptions.elementAt(_selectedIndex),
-      ],
+      children: <Widget>[_widgetOptions.elementAt(_selectedIndex)],
     ),
   );
 }
 
-List<Widget> retornaWidgetsBody(Widget _buildPanelTeste, BuildContext context) {
+List<Widget> retornaWidgetsBody(Future<ExpansionPanelList> _expansionPanelListLocal, BuildContext context) {
   return <Widget>[
     Column(
-      children: <Widget>[
+      children: <ExpansionPanelList>[
         //retornaTextBodyMenuPrincipal(),
-        _buildPanelTeste,
+        //_expansionPanelListLocal.then((value) => value),
       ],
     ),
     Column(
@@ -32,6 +30,10 @@ List<Widget> retornaWidgetsBody(Widget _buildPanelTeste, BuildContext context) {
     ),
   ];
 }
+
+// Future<ExpansionPanelList> teste(Future<ExpansionPanelList> _expansionPanelListLocal) async {
+//   return _expansionPanelListLocal;
+// }
 
 // Text retornaTextBodyMenuPrincipal() {
 //   return Text(
