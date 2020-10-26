@@ -11,7 +11,7 @@ String de = " ";
 String para = "+";
 
 // Widget retornaFloatingActionButton(List<DropDownListExpansible> data, BuildContext context, DbProvider db) {
-Widget retornaFloatingActionButton(Future<List<DropDownListExpansible>> data, BuildContext context, DbProvider db) {
+Widget retornaFloatingActionButton(List<DropDownListExpansible> data, BuildContext context, DbProvider db) {
   return Builder(
       builder: (context) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -50,12 +50,12 @@ Widget retornaFloatingActionButton(Future<List<DropDownListExpansible>> data, Bu
                           child: Icon(Icons.access_alarm),
                           onPressed: () async {
                             WidgetsFlutterBinding.ensureInitialized();
-                            var teste = await db.fetchItems("Character");
-                            CharacterModel teste3 = CharacterModel.fromMap(teste.last);
+                            var fetchedItems = await db.fetchItems("Character");
+                            CharacterModel characterEntity = CharacterModel.fromMap(fetchedItems.last);
                             //ExpansionPanel teste4 = retornaTeste(teste3);
                             // data.add(retornaTeste(teste3));
                             // data.add(generatedropDownItem(teste3.name, teste3.vocation));
-                            data.then((value) => value.add(generatedropDownItem(teste3.name, teste3.vocation)));
+                            data.add(generatedropDownItem(characterEntity.name, characterEntity.vocation));
                             Navigator.of(context).pop();
                           },
                         ),

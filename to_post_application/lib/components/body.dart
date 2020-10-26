@@ -14,12 +14,12 @@ Center retornaBody(List<Widget> _widgetOptions, int _selectedIndex) {
   );
 }
 
-List<Widget> retornaWidgetsBody(Future<ExpansionPanelList> _expansionPanelListLocal, BuildContext context) {
+List<Widget> retornaWidgetsBody(Widget _expansionPanelListLocal, BuildContext context) {
   return <Widget>[
     Column(
-      children: <ExpansionPanelList>[
+      children: <Widget>[
         //retornaTextBodyMenuPrincipal(),
-        //_expansionPanelListLocal.then((value) => value),
+        _expansionPanelListLocal,
       ],
     ),
     Column(

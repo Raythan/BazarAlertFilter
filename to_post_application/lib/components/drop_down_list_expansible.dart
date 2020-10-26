@@ -1,13 +1,12 @@
-// stores ExpansionPanel state information
 class DropDownListExpansible {
   DropDownListExpansible({
     this.expandedValue,
     this.headerValue,
-    this.id,
+    //this.id,
     this.isExpanded = false,
   });
 
-  int id;
+  //int id;
   String expandedValue;
   String headerValue;
   bool isExpanded;

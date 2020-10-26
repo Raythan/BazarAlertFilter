@@ -6,6 +6,7 @@ import 'package:to_post_application/components/drop_down_itens.dart';
 import 'package:to_post_application/resources/database_context.dart';
 
 int _selectedIndex = 0;
+int counter = 1;
 
 class Principal extends StatefulWidget {
   @override
@@ -17,16 +18,21 @@ class _PrincipalState extends State<Principal> {
   BuildContext context;
   MaterialApp material;
   DbProvider db = DbProvider();
-  Future<List<DropDownListExpansible>> _data;
-  Future<ExpansionPanelList> _expansionPanelListLocal;
+  List<DropDownListExpansible> data = generateItemsTeste(counter);
+  ExpansionPanelList expansionPanelListLocal = _buildPanelTeste();
+  BottomNavigationBar _bottomNaviBarLocal;
 
   @override
   Widget build(context) {
-    _data = generateFetchStartAsync(db).then((value) => value);
-    _expansionPanelListLocal = _buildPanelTeste().then((value) => value);
+    // data = data ?? generateItemsTeste(2);
+    //data = generateItemsTeste(counter);
+    counter++;
+    //expansionPanelListLocal = expansionPanelListLocal ?? _buildPanelTeste();
+    _bottomNaviBarLocal = _bottomNaviBarLocal ?? retornaBottomNavigatorAndIcons(_selectedIndex);
     this.material = MaterialApp(
+      //home: retornaScaffold(_selectedIndex, _bottomNaviBarLocal, data, expansionPanelListLocal, _appBarTitle, context, db),
       home: retornaScaffold(
-          _selectedIndex, retornaBottomNavigatorAndIcons(_selectedIndex), _data, _expansionPanelListLocal, _appBarTitle, context, db),
+          _selectedIndex, retornaBottomNavigatorAndIcons(_selectedIndex), data, _buildPanelTeste(), _appBarTitle, context, db),
       debugShowCheckedModeBanner: false,
     );
     return this.material;
@@ -49,69 +55,32 @@ class _PrincipalState extends State<Principal> {
     );
   }
 
-  Future<ExpansionPanelList> _buildPanelTeste() async {
+  ExpansionPanelList _buildPanelTeste() {
     return ExpansionPanelList(
-        expansionCallback: (int index, bool isExpanded) {
-          setState(() {
-            // _data[index].isExpanded = !isExpanded;
-            _data.then((value) => value.elementAt(index).isExpanded = !isExpanded);
-          });
-        },
-        // children: _data.map<ExpansionPanel>((DropDownListExpansible item) {
-        children: await _data.then(
-          (value) => value
-              .map<ExpansionPanel>((DropDownListExpansible item) => ExpansionPanel(
-                    headerBuilder: (BuildContext context, bool isExpanded) {
-                      return ListTile(
-                        title: Text(item.headerValue),
-                      );
-                    },
-                    body: ListTile(
-                        title: Text(item.expandedValue),
-                        subtitle: Text('Para deletar pressione a lixeira!'),
-                        trailing: Icon(Icons.delete),
-                        onTap: () {
-                          setState(() {
-                            // _data.removeWhere((currentItem) => item == currentItem);
-                            _data.then((value) => value.removeWhere((currentItem) => item == currentItem));
-                          });
-                        }),
-                    isExpanded: item.isExpanded,
-                  ))
-              .toList(),
-        ));
+      expansionCallback: (int index, bool isExpanded) {
+        setState(() {
+          data[index].isExpanded = !isExpanded;
+        });
+      },
+      children: data.map<ExpansionPanel>((DropDownListExpansible item) {
+        return ExpansionPanel(
+          headerBuilder: (BuildContext context, bool isExpanded) {
+            return ListTile(
+              title: Text(item.headerValue),
+            );
+          },
+          body: ListTile(
+              title: Text(item.expandedValue),
+              subtitle: Text('Para deletar pressione a lixeira!'),
+              trailing: Icon(Icons.delete),
+              onTap: () {
+                setState(() {
+                  data.removeWhere((currentItem) => item == currentItem);
+                });
+              }),
+          isExpanded: item.isExpanded,
+        );
+      }).toList(),
+    );
   }
-
-// ExpansionPanelList _buildPanelTeste() async {
-//     return ExpansionPanelList(
-//       expansionCallback: (int index, bool isExpanded) {
-//         setState(() {
-//           // _data[index].isExpanded = !isExpanded;
-//           _data.then((value) => value.elementAt(index).isExpanded = !isExpanded);
-//         });
-//       },
-//       // children: _data.map<ExpansionPanel>((DropDownListExpansible item) {
-//       children: await _data.then((value) => value.map<ExpansionPanel>((DropDownListExpansible item) =>
-//           ExpansionPanel(
-//           headerBuilder: (BuildContext context, bool isExpanded) {
-//             return ListTile(
-//               title: Text(item.headerValue),
-//             );
-//           },
-//           body: ListTile(
-//               title: Text(item.expandedValue),
-//               subtitle: Text('Para deletar pressione a lixeira!'),
-//               trailing: Icon(Icons.delete),
-//               onTap: () {
-//                 setState(() {
-//                   // _data.removeWhere((currentItem) => item == currentItem);
-//                   _data.then((value) => value.removeWhere((currentItem) => item == currentItem));
-//                 });
-//               }),
-//           isExpanded: item.isExpanded,
-//         )
-//       ).toList(),
-//     ));
-//   }
-
 }

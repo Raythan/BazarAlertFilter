@@ -5,14 +5,14 @@ import 'body.dart';
 import 'floating_action_button.dart';
 import 'package:to_post_application/components/drop_down_list_expansible.dart';
 
-Scaffold retornaScaffold(int _selectedIndex, BottomNavigationBar _bottomNavigationBar, Future<List<DropDownListExpansible>> _data,
-    Future<ExpansionPanelList> _expansionPanelListLocal, String _appBarTitle, BuildContext context, DbProvider db) {
+Scaffold retornaScaffold(int selectedIndex, BottomNavigationBar bottomNavigationBar, List<DropDownListExpansible> data,
+    Widget expansionPanelListLocal, String appBarTitle, BuildContext context, DbProvider db) {
   return Scaffold(
     // appBar: AppBar(title: Text('Aplicação Beta!')),
     // appBar: AppBar(title: Text(_appBarTitle)),
-    appBar: retornaAppBar(_appBarTitle),
+    appBar: retornaAppBar(appBarTitle),
     body: Builder(
-      builder: (context) => retornaBody(retornaWidgetsBody(_expansionPanelListLocal, context), _selectedIndex),
+      builder: (context) => retornaBody(retornaWidgetsBody(expansionPanelListLocal, context), selectedIndex),
     ),
     //     Center(
     //     child: RaisedButton(
@@ -25,8 +25,8 @@ Scaffold retornaScaffold(int _selectedIndex, BottomNavigationBar _bottomNavigati
     //),
     // body: retornaBody(
     //     retornaWidgetsBody(_buildPanelTeste, context), _selectedIndex),
-    bottomNavigationBar: _bottomNavigationBar,
+    bottomNavigationBar: bottomNavigationBar,
     floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-    floatingActionButton: _selectedIndex == 0 ? retornaFloatingActionButton(_data, context, db) : null,
+    floatingActionButton: selectedIndex == 0 ? retornaFloatingActionButton(data, context, db) : null,
   );
 }
