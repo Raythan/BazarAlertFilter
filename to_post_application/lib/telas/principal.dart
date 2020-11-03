@@ -28,12 +28,13 @@ class PrincipalState extends State<Principal> {
   @override
   Widget build(context) {
     generateFetchStartAsync(db).then((value) => setState(() {
+          // if (data == null) {
           data = data == null ? value : data;
           expansionPanelListLocal = _buildCharacterPanel(); // data = data ?? generateItemsTeste(counter);
           //data = generateItemsTeste(counter);
           //data = generateFetchStartAsync(db);
           //expansionPanelListLocal = expansionPanelListLocal == null ? _buildPanelTeste() : expansionPanelListLocal;
-          _bottomNaviBarLocal = _bottomNaviBarLocal ?? retornaBottomNavigatorAndIcons(_selectedIndex);
+          _bottomNaviBarLocal = retornaBottomNavigatorAndIcons(_selectedIndex);
           material = MaterialApp(
             //home: retornaScaffold(_selectedIndex, _bottomNaviBarLocal, data, expansionPanelListLocal, _appBarTitle, context, db),
             home: retornaScaffold(
@@ -51,6 +52,7 @@ class PrincipalState extends State<Principal> {
             debugShowCheckedModeBanner: false,
           );
           return material;
+          //}
         }));
     return material;
   }
