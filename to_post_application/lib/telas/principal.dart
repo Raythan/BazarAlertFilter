@@ -10,32 +10,49 @@ int counter = 1;
 
 class Principal extends StatefulWidget {
   @override
-  _PrincipalState createState() => _PrincipalState();
+  PrincipalState createState() => PrincipalState();
 }
 
-class _PrincipalState extends State<Principal> {
+class PrincipalState extends State<Principal> {
   String _appBarTitle = "Principal";
   BuildContext context;
-  MaterialApp material;
+  MaterialApp material = MaterialApp(home: Text("Carregando!"));
   DbProvider db = DbProvider();
-  List<DropDownListExpansible> data = generateItemsTeste(counter);
-  ExpansionPanelList expansionPanelListLocal = _buildPanelTeste();
+  // List<DropDownListExpansible> data = generateItemsTeste(counter);
+  // Future<List<DropDownListExpansible>> data;
+  //ExpansionPanelList expansionPanelListLocal = _buildPanelTeste();
+  List<DropDownListExpansible> data;
+  ExpansionPanelList expansionPanelListLocal;
   BottomNavigationBar _bottomNaviBarLocal;
 
   @override
   Widget build(context) {
-    // data = data ?? generateItemsTeste(2);
-    //data = generateItemsTeste(counter);
-    counter++;
-    //expansionPanelListLocal = expansionPanelListLocal ?? _buildPanelTeste();
-    _bottomNaviBarLocal = _bottomNaviBarLocal ?? retornaBottomNavigatorAndIcons(_selectedIndex);
-    this.material = MaterialApp(
-      //home: retornaScaffold(_selectedIndex, _bottomNaviBarLocal, data, expansionPanelListLocal, _appBarTitle, context, db),
-      home: retornaScaffold(
-          _selectedIndex, retornaBottomNavigatorAndIcons(_selectedIndex), data, _buildPanelTeste(), _appBarTitle, context, db),
-      debugShowCheckedModeBanner: false,
-    );
-    return this.material;
+    generateFetchStartAsync(db).then((value) => setState(() {
+          data = data == null ? value : data;
+          expansionPanelListLocal = _buildCharacterPanel(); // data = data ?? generateItemsTeste(counter);
+          //data = generateItemsTeste(counter);
+          //data = generateFetchStartAsync(db);
+          //expansionPanelListLocal = expansionPanelListLocal == null ? _buildPanelTeste() : expansionPanelListLocal;
+          _bottomNaviBarLocal = _bottomNaviBarLocal ?? retornaBottomNavigatorAndIcons(_selectedIndex);
+          material = MaterialApp(
+            //home: retornaScaffold(_selectedIndex, _bottomNaviBarLocal, data, expansionPanelListLocal, _appBarTitle, context, db),
+            home: retornaScaffold(
+                // _selectedIndex, retornaBottomNavigatorAndIcons(_selectedIndex), data, _buildPanelTeste(), _appBarTitle, context, db),
+                _selectedIndex,
+                _bottomNaviBarLocal,
+                data,
+                // _buildPanelTeste(),
+                expansionPanelListLocal,
+                _appBarTitle,
+                context,
+                db,
+                this),
+            // home: retornaScaffoldAsync(_selectedIndex, _bottomNaviBarLocal, data, _buildPanelTeste(), _appBarTitle, context, db, this),
+            debugShowCheckedModeBanner: false,
+          );
+          return material;
+        }));
+    return material;
   }
 
   void onItemTapped(int index) {
@@ -55,7 +72,7 @@ class _PrincipalState extends State<Principal> {
     );
   }
 
-  ExpansionPanelList _buildPanelTeste() {
+  ExpansionPanelList _buildCharacterPanel() {
     return ExpansionPanelList(
       expansionCallback: (int index, bool isExpanded) {
         setState(() {
@@ -71,7 +88,7 @@ class _PrincipalState extends State<Principal> {
           },
           body: ListTile(
               title: Text(item.expandedValue),
-              subtitle: Text('Para deletar pressione a lixeira!'),
+              subtitle: Text(item.subTitleValue),
               trailing: Icon(Icons.delete),
               onTap: () {
                 setState(() {
@@ -83,4 +100,33 @@ class _PrincipalState extends State<Principal> {
       }).toList(),
     );
   }
+
+  // ExpansionPanelList _buildPanelTeste() {
+  //   return ExpansionPanelList(
+  //     expansionCallback: (int index, bool isExpanded) {
+  //       setState(() {
+  //         data[index].isExpanded = !isExpanded;
+  //       });
+  //     },
+  //     children: data.map<ExpansionPanel>((DropDownListExpansible item) {
+  //       return ExpansionPanel(
+  //         headerBuilder: (BuildContext context, bool isExpanded) {
+  //           return ListTile(
+  //             title: Text(item.headerValue),
+  //           );
+  //         },
+  //         body: ListTile(
+  //             title: Text(item.expandedValue),
+  //             subtitle: Text('Para deletar pressione a lixeira!'),
+  //             trailing: Icon(Icons.delete),
+  //             onTap: () {
+  //               setState(() {
+  //                 data.removeWhere((currentItem) => item == currentItem);
+  //               });
+  //             }),
+  //         isExpanded: item.isExpanded,
+  //       );
+  //     }).toList(),
+  //   );
+  // }
 }

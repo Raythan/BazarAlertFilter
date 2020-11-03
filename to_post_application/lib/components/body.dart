@@ -20,6 +20,7 @@ List<Widget> retornaWidgetsBody(Widget _expansionPanelListLocal, BuildContext co
       children: <Widget>[
         //retornaTextBodyMenuPrincipal(),
         _expansionPanelListLocal,
+        // _expansionPanelListLocal != null ? ,
       ],
     ),
     Column(

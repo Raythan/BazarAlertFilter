@@ -2,20 +2,47 @@ import 'package:to_post_application/components/drop_down_list_expansible.dart';
 import 'package:to_post_application/entities/character_entity.dart';
 import 'package:to_post_application/resources/database_context.dart';
 
-List<DropDownListExpansible> generateFetchStartAsync(DbProvider _db) {
-  List<DropDownListExpansible> objRet;
+// List<DropDownListExpansible> generateFetchStartAsync(DbProvider _db) {
+//   List<DropDownListExpansible> objRet;
+//   var teste = _db.fetchItems("Character").then((result) => result).whenComplete(() {
+//     for (Map resultMap in result) {
+//       CharacterModel character = CharacterModel.fromMap(resultMap);
 
-  Future<List<Map>> teste = _db.fetchItems("Character").then((value) => value);
+//       objRet.add(DropDownListExpansible(
+//         headerValue: '${character.name}',
+//         expandedValue: 'Lv: ${character.level}, ${character.title}',
+//         id: character.id,
+//       ));
+//     }
+//   });
 
-  // for (Map i in teste) {
-  //   CharacterModel teste3 = CharacterModel.fromMap(i);
+//   // for (Map i in teste) {
+//   //   CharacterModel teste3 = CharacterModel.fromMap(i);
 
-  //   objRet.add(DropDownListExpansible(
-  //     headerValue: '${teste3.name}',
-  //     expandedValue: 'Lv: ${teste3.level}, ${teste3.title}',
-  //     id: teste3.id,
-  //   ));
-  // }
+//   //   objRet.add(DropDownListExpansible(
+//   //     headerValue: '${teste3.name}',
+//   //     expandedValue: 'Lv: ${teste3.level}, ${teste3.title}',
+//   //     id: teste3.id,
+//   //   ));
+//   // }
+
+//   return objRet;
+// }
+
+Future<List<DropDownListExpansible>> generateFetchStartAsync(DbProvider _db) async {
+  List<DropDownListExpansible> objRet = List<DropDownListExpansible>();
+  await _db.initDb();
+  var result = await _db.fetchItems("Character");
+
+  for (Map resultMap in result) {
+    CharacterModel character = CharacterModel.fromMap(resultMap);
+    objRet.add(DropDownListExpansible(
+        headerValue: '${character.name}',
+        expandedValue: 'Lv: ${character.level}, ${character.title}',
+        id: character.id,
+        subTitleValue: 'Subtitulo está carregando. ${character.id}',
+        titleValue: 'Personagem carregando ${character.name}'));
+  }
 
   return objRet;
 }

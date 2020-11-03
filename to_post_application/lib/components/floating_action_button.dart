@@ -95,6 +95,58 @@ Widget retornaFloatingActionButton(List<DropDownListExpansible> data, BuildConte
   //         ));
 }
 
+Future<Widget> retornaFloatingActionButtonAsync(Future<List<DropDownListExpansible>> data, BuildContext context, DbProvider db) async {
+  return Builder(
+      builder: (context) => Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: FloatingActionButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    // return object of type Dialog
+                    return AlertDialog(
+                      title: Text("Insira o nome:"),
+                      content: TextFormField(controller: _characterNameController),
+                      actions: <Widget>[
+                        FlatButton(
+                          child: Icon(Icons.search),
+                          onPressed: () async {
+                            var dataFromApi = await getCharacterData(_characterNameController.text.replaceAll(de, para));
+                            final CharacterModel character = CharacterModel.fromMapDataApi(dataFromApi);
+                            WidgetsFlutterBinding.ensureInitialized();
+                            await db.addItem("Character", character);
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        FlatButton(
+                          child: Text("Fechar"),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        FlatButton(
+                          child: Icon(Icons.access_alarm),
+                          onPressed: () async {
+                            WidgetsFlutterBinding.ensureInitialized();
+                            var fetchedItems = await db.fetchItems("Character");
+                            CharacterModel characterEntity = CharacterModel.fromMap(fetchedItems.last);
+                            data.then((value) {
+                              value.add(generatedropDownItem(characterEntity.name, characterEntity.vocation));
+                            });
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: Icon(Icons.add),
+            ),
+          ));
+}
+
 // ExpansionPanel retornaTeste(CharacterModel model) {
 //   List<DropDownListExpansible> _data = generateCharacterList(1, model.name, model.vocation);
 
