@@ -31,7 +31,14 @@ class PrincipalState extends State<Principal> {
   Widget build(context) {
     generateFetchStartAsync(db).then((value) => setState(() {
           // if (data == null) {
-          data = data == null ? value : data;
+          // data = data == null ? value : data;
+          if (data == null) data = value;
+
+          if (data != null && data.length < value.length)
+            data = value;
+          else
+            data = data;
+
           expansionPanelListLocal = _buildCharacterPanel(); // data = data ?? generateItemsTeste(counter);
           //data = generateItemsTeste(counter);
           //data = generateFetchStartAsync(db);
@@ -48,8 +55,7 @@ class PrincipalState extends State<Principal> {
                 expansionPanelListLocal,
                 _appBarTitle,
                 context,
-                db,
-                this),
+                db),
             // home: retornaScaffoldAsync(_selectedIndex, _bottomNaviBarLocal, data, _buildPanelTeste(), _appBarTitle, context, db, this),
             debugShowCheckedModeBanner: false,
           );
