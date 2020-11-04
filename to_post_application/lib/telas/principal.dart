@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_post_application/components/bottom_navigation_bar.dart';
 import 'package:to_post_application/components/drop_down_list_expansible.dart';
+import 'package:to_post_application/components/material_loading.dart';
 import 'package:to_post_application/components/scaffold.dart';
 import 'package:to_post_application/components/drop_down_itens.dart';
 import 'package:to_post_application/resources/database_context.dart';
@@ -16,7 +17,8 @@ class Principal extends StatefulWidget {
 class PrincipalState extends State<Principal> {
   String _appBarTitle = "Principal";
   BuildContext context;
-  MaterialApp material = MaterialApp(home: Text("Carregando!"));
+  MaterialApp material = retornaCarregando();
+
   DbProvider db = DbProvider();
   // List<DropDownListExpansible> data = generateItemsTeste(counter);
   // Future<List<DropDownListExpansible>> data;

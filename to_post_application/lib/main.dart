@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:to_post_application/entities/character_entity.dart';
-import 'package:to_post_application/entities/entity_sample.dart';
-import 'package:to_post_application/resources/database_context.dart';
 import 'package:to_post_application/telas/principal.dart';
 
 void main() => runApp(Principal());
