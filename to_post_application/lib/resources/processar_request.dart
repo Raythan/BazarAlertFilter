@@ -5,8 +5,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 
 const _teste = "https://api.tibiadata.com/v2/characters/Aegda+Anden.json";
-String _characterName;
-String _requestCharacterData = "https://api.tibiadata.com/v2/characters/$_characterName.json";
+// String _requestCharacterData = "https://api.tibiadata.com/v2/characters/$_characterName.json";
 
 // void main() async {
 //   runApp(
@@ -28,8 +27,9 @@ Future<String> getDataString() async {
 }
 
 Future<Map<String, dynamic>> getCharacterData(String paramCharName) async {
-  _characterName = paramCharName;
-  http.Response response = await http.get(_requestCharacterData);
+  // String _characterName = paramCharName;
+  http.Response response = await http.get("https://api.tibiadata.com/v2/characters/$paramCharName.json");
+  // _characterName = '';
   return json.decode(response.body);
 }
 

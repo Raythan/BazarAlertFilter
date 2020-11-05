@@ -3,17 +3,17 @@ import 'dart:convert';
 final String characterTable = "Character";
 
 class CharacterModel {
-  final int id;
-  final String name;
-  final String title;
-  final String sex;
-  final String vocation;
-  final int level;
-  final int achievementPoints;
-  final String world;
-  final String residence;
-  final String accountStatus;
-  final String status;
+  int id;
+  String name;
+  String title;
+  String sex;
+  String vocation;
+  int level;
+  int achievementPoints;
+  String world;
+  String residence;
+  String accountStatus;
+  String status;
 
   CharacterModel(
       {this.id,
@@ -61,6 +61,23 @@ class CharacterModel {
   }
 
   factory CharacterModel.fromMapDataApi(Map<String, dynamic> map) {
+    if (map == null) return null;
+
+    return CharacterModel(
+        //id: map['id'],
+        name: map['characters']['data']['name'],
+        title: map['characters']['data']['title'],
+        sex: map['characters']['data']['sex'],
+        vocation: map['characters']['data']['vocation'],
+        level: map['characters']['data']['level'],
+        achievementPoints: map['characters']['data']['achievement_points'],
+        world: map['characters']['data']['world'],
+        residence: map['characters']['data']['residence'],
+        accountStatus: map['characters']['data']['account_status'],
+        status: map['characters']['data']['status']);
+  }
+
+  CharacterModel fromMapDataApi(Map<String, dynamic> map) {
     if (map == null) return null;
 
     return CharacterModel(

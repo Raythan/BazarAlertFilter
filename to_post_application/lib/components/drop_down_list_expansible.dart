@@ -3,7 +3,6 @@ class DropDownListExpansible {
     this.expandedValue,
     this.headerValue,
     this.id,
-    this.titleValue,
     this.subTitleValue,
     this.isExpanded = false,
   });
@@ -12,6 +11,5 @@ class DropDownListExpansible {
   String expandedValue;
   String headerValue;
   bool isExpanded;
-  String titleValue;
   String subTitleValue;
 }

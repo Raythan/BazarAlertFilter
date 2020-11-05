@@ -31,20 +31,23 @@ import 'package:to_post_application/resources/database_context.dart';
 
 Future<List<DropDownListExpansible>> generateFetchStartAsync(DbProvider _db) async {
   List<DropDownListExpansible> objRet = List<DropDownListExpansible>();
-  await _db.initDb();
+  // await _db.initDb();
   var result = await _db.fetchItems("Character");
 
   for (Map resultMap in result) {
     CharacterModel character = CharacterModel.fromMap(resultMap);
     objRet.add(DropDownListExpansible(
-        headerValue: '${character.name}',
-        expandedValue: 'Lv: ${character.level}, ${character.title}',
+        headerValue: '${character.name} - ${character.level}',
+        expandedValue: '${character.accountStatus} - Residence: ${character.residence}',
         id: character.id,
-        subTitleValue: 'Subtitulo está carregando. ${character.id}',
-        titleValue: 'Personagem carregando ${character.name}'));
+        subTitleValue: '${character.title} - Achv Pts:${character.achievementPoints}'));
   }
 
   return objRet;
+}
+
+Future deleteCharacterById(DbProvider _db, int id) async {
+  int qt = await _db.deleteItem("Character", id);
 }
 
 List<DropDownListExpansible> generateItemsTeste(int numberOfItems) {

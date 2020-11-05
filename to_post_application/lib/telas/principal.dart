@@ -34,7 +34,7 @@ class PrincipalState extends State<Principal> {
           // data = data == null ? value : data;
           if (data == null) data = value;
 
-          if (data != null && data.length < value.length)
+          if (data != null && value != null && data.length < value.length)
             data = value;
           else
             data = data;
@@ -101,9 +101,13 @@ class PrincipalState extends State<Principal> {
               subtitle: Text(item.subTitleValue),
               trailing: Icon(Icons.delete),
               onTap: () {
-                setState(() {
-                  data.removeWhere((currentItem) => item == currentItem);
-                });
+                // setState(() {
+                //   deleteCharacterById(db, item.id).then((value) => null);
+                //   data.removeWhere((currentItem) => item == currentItem);
+                // });
+                deleteCharacterById(db, item.id).then((value) => (setState(() {
+                      data.removeWhere((currentItem) => item == currentItem);
+                    })));
               }),
           isExpanded: item.isExpanded,
         );

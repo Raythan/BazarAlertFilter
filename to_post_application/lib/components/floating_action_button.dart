@@ -31,13 +31,24 @@ Widget retornaFloatingActionButton(List<DropDownListExpansible> data, BuildConte
                         FlatButton(
                           child: Icon(Icons.search),
                           onPressed: () async {
+                            // //CharacterModel teste2 = CharacterModel.fromJson();
+                            // dynamic dataFromApi = await getCharacterData(_characterNameController.text.replaceAll(de, para));
+                            // //Future<String> teste = await getDataString().then((value) => print(value));
+                            // CharacterModel character = CharacterModel.fromMapDataApi(dataFromApi);
+                            // WidgetsFlutterBinding.ensureInitialized();
+                            // await db.addItem("Character", character);
+                            // Navigator.of(context).pop();
                             //CharacterModel teste2 = CharacterModel.fromJson();
-                            var dataFromApi = await getCharacterData(_characterNameController.text.replaceAll(de, para));
+                            getCharacterData(_characterNameController.text.replaceAll(de, para)).then((value) {
+                              var dataFromApi = value;
+                              CharacterModel character = new CharacterModel();
+                              character = character.fromMapDataApi(dataFromApi);
+                              // WidgetsFlutterBinding.ensureInitialized();
+                              db.addItem("Character", character).then((value2) {
+                                Navigator.of(context).pop();
+                              });
+                            });
                             //Future<String> teste = await getDataString().then((value) => print(value));
-                            final CharacterModel character = CharacterModel.fromMapDataApi(dataFromApi);
-                            WidgetsFlutterBinding.ensureInitialized();
-                            await db.addItem("Character", character);
-                            Navigator.of(context).pop();
                           },
                         ),
                         FlatButton(
