@@ -8,6 +8,7 @@ import 'package:to_post_application/resources/database_context.dart';
 
 int _selectedIndex = 0;
 int counter = 1;
+bool isDirty = true;
 
 class Principal extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class Principal extends StatefulWidget {
 }
 
 class PrincipalState extends State<Principal> {
-  String _appBarTitle = "Principal";
+  String _appBarTitle = titles[_selectedIndex];
   BuildContext context;
   MaterialApp material = retornaCarregando();
 
@@ -32,12 +33,17 @@ class PrincipalState extends State<Principal> {
     generateFetchStartAsync(db).then((value) => setState(() {
           // if (data == null) {
           // data = data == null ? value : data;
-          if (data == null) data = value;
+          // if (data == null || isDirty) {
+          //   data = value;
+          //   isDirty = false;
+          // }
 
-          if (data != null && value != null && data.length < value.length)
+          if (data == null || isDirty || (data != null && value != null && data.length != value.length)) {
             data = value;
-          else
+            isDirty = false;
+          } else {
             data = data;
+          }
 
           expansionPanelListLocal = _buildCharacterPanel(); // data = data ?? generateItemsTeste(counter);
           //data = generateItemsTeste(counter);
@@ -69,6 +75,7 @@ class PrincipalState extends State<Principal> {
     setState(() {
       _selectedIndex = index;
       _appBarTitle = titles[_selectedIndex];
+      isDirty = true;
     });
   }
 

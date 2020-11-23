@@ -10,7 +10,8 @@ Scaffold retornaScaffold(int selectedIndex, BottomNavigationBar bottomNavigation
   return Scaffold(
     // appBar: AppBar(title: Text('Aplicação Beta!')),
     // appBar: AppBar(title: Text(_appBarTitle)),
-    appBar: retornaAppBar(appBarTitle),
+    // appBar: retornaAppBar(appBarTitle),
+    appBar: selectedIndex == 0 ? retornaAppBarComAdicaoAtualizacao(appBarTitle, data, context, db) : retornaAppBar(appBarTitle),
     body: FutureBuilder(
       builder: (context, snapshot) => retornaBody(retornaWidgetsBody(expansionPanelListLocal, context), selectedIndex),
     ),
@@ -29,8 +30,8 @@ Scaffold retornaScaffold(int selectedIndex, BottomNavigationBar bottomNavigation
     // body: retornaBody(
     //     retornaWidgetsBody(_buildPanelTeste, context), _selectedIndex),
     bottomNavigationBar: bottomNavigationBar,
-    floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-    floatingActionButton: selectedIndex == 0 ? retornaFloatingActionButton(data, context, db) : null,
+    // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+    // floatingActionButton: selectedIndex == 0 ? retornaFloatingActionButton(data, context, db) : null,
   );
 }
 
@@ -57,8 +58,8 @@ Scaffold retornaScaffold(int selectedIndex, BottomNavigationBar bottomNavigation
 //     //),
 //     // body: retornaBody(
 //     //     retornaWidgetsBody(_buildPanelTeste, context), _selectedIndex),
-//     bottomNavigationBar: bottomNavigationBar,
-//     floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-//     floatingActionButton: selectedIndex == 0 ? retornaFloatingActionButton(data, context, db) : null,
+// bottomNavigationBar: bottomNavigationBar,
+// floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+// floatingActionButton: selectedIndex == 0 ? retornaFloatingActionButton(data, context, db) : null,
 //   );
 // }

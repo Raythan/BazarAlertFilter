@@ -59,6 +59,14 @@ class DbProvider {
     return maps;
   }
 
+  //READ/SELECT
+  Future<Map> fetchItemsByName(String tableName, String name) async {
+    final db = await initDb();
+    final maps = await db.query(tableName, where: "name = ?", whereArgs: [name]);
+
+    return maps.firstWhere((element) => element.length > 0);
+  }
+
   //DELETE
   Future<int> deleteItem(String tableName, int id) async {
     final db = await initDb();
