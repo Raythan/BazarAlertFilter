@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-List<String> titles = ['Principal', 'Contato'];
+List<String> titles = ['Principal', 'Bazar', 'Contato'];
 
 List<BottomNavigationBarItem> retornaBottomNavigationBarItens() {
   return <BottomNavigationBarItem>[
@@ -11,8 +11,13 @@ List<BottomNavigationBarItem> retornaBottomNavigationBarItens() {
     ),
     BottomNavigationBarItem(
       //icon: Icon(Icons.business),
-      icon: Icon(Icons.contact_mail),
+      icon: Icon(Icons.adb),
       title: Text(titles[1]),
+    ),
+    BottomNavigationBarItem(
+      //icon: Icon(Icons.business),
+      icon: Icon(Icons.contact_mail),
+      title: Text(titles[2]),
     ),
   ];
 }

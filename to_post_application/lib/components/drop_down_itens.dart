@@ -47,7 +47,8 @@ Future<List<DropDownListExpansible>> generateFetchStartAsync(DbProvider _db) asy
 }
 
 Future deleteCharacterById(DbProvider _db, int id) async {
-  int qt = await _db.deleteItem("Character", id);
+  // int qt = await _db.deleteItem("Character", id);
+  await _db.deleteItem("Character", id);
 }
 
 List<DropDownListExpansible> generateItemsTeste(int numberOfItems) {
@@ -67,4 +68,17 @@ List<DropDownListExpansible> generateDropDownItemList(int numberOfItems, String 
 
 DropDownListExpansible generatedropDownItem(String headerValue, String expandedValue) {
   return DropDownListExpansible(headerValue: headerValue, expandedValue: expandedValue);
+}
+
+Future<List<String>> getAllCharacterNamesAsync(DbProvider _db) async {
+  List<String> objRet = List<String>();
+  // await _db.initDb();
+  var result = await _db.fetchItems("Character");
+
+  for (Map resultMap in result) {
+    // CharacterModel character = CharacterModel.fromMap(resultMap);
+    objRet.add(CharacterModel.fromMap(resultMap).name);
+  }
+
+  return objRet;
 }

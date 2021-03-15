@@ -4,11 +4,12 @@ import 'package:to_post_application/components/drop_down_list_expansible.dart';
 import 'package:to_post_application/components/material_loading.dart';
 import 'package:to_post_application/components/scaffold.dart';
 import 'package:to_post_application/components/drop_down_itens.dart';
+import 'package:to_post_application/entities/bazar_entity.dart';
+import 'package:to_post_application/resources/web_scrapper.dart';
 import 'package:to_post_application/resources/database_context.dart';
 
 int _selectedIndex = 0;
 int counter = 1;
-bool isDirty = true;
 
 class Principal extends StatefulWidget {
   @override
@@ -27,9 +28,12 @@ class PrincipalState extends State<Principal> {
   List<DropDownListExpansible> data;
   ExpansionPanelList expansionPanelListLocal;
   BottomNavigationBar _bottomNaviBarLocal;
+  // BazarModel bazar = BazarModel(ascDescFilter: "asc", battleEyeFilter: "bat");
 
   @override
   Widget build(context) {
+    // String teste = bazar.toString();
+    // initChaptersTitleScrap();
     generateFetchStartAsync(db).then((value) => setState(() {
           // if (data == null) {
           // data = data == null ? value : data;
@@ -38,9 +42,8 @@ class PrincipalState extends State<Principal> {
           //   isDirty = false;
           // }
 
-          if (data == null || isDirty || (data != null && value != null && data.length != value.length)) {
+          if (data == null || (data != null && value != null && data.length != value.length)) {
             data = value;
-            isDirty = false;
           } else {
             data = data;
           }
@@ -75,7 +78,6 @@ class PrincipalState extends State<Principal> {
     setState(() {
       _selectedIndex = index;
       _appBarTitle = titles[_selectedIndex];
-      isDirty = true;
     });
   }
 

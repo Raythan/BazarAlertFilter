@@ -25,6 +25,13 @@ List<Widget> retornaWidgetsBody(Widget _expansionPanelListLocal, BuildContext co
     ),
     Column(
       children: <Widget>[
+        //retornaTextBodyMenuPrincipal(),
+        retornaBodyBazar(context),
+        // _expansionPanelListLocal != null ? ,
+      ],
+    ),
+    Column(
+      children: <Widget>[
         //retornaTextBodyMenuContato(),
         retornaBodyContato(context),
       ],
@@ -51,6 +58,17 @@ List<Widget> retornaWidgetsBody(Widget _expansionPanelListLocal, BuildContext co
 //     style: _textBodyStyle,
 //   );
 // }
+
+Widget retornaBodyBazar(BuildContext context) {
+  TextEditingController nomeController = new TextEditingController();
+
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: <Widget>[
+      retornaTextFormNomeOld(nomeController),
+    ],
+  );
+}
 
 Widget retornaBodyContato(BuildContext context) {
   TextEditingController nomeController = new TextEditingController();

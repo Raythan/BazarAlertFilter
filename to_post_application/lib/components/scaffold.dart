@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:to_post_application/components/app_bar.dart';
 import 'package:to_post_application/resources/database_context.dart';
 import 'body.dart';
-import 'floating_action_button.dart';
 import 'package:to_post_application/components/drop_down_list_expansible.dart';
 
 Scaffold retornaScaffold(int selectedIndex, BottomNavigationBar bottomNavigationBar, List<DropDownListExpansible> data,

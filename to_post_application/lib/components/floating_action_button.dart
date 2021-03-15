@@ -5,7 +5,6 @@ import 'package:to_post_application/entities/character_entity.dart';
 import 'package:to_post_application/resources/database_context.dart';
 import 'package:to_post_application/resources/processar_request.dart';
 
-String _characterName = "";
 TextEditingController _characterNameController = TextEditingController();
 String de = " ";
 String para = "+";

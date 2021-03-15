@@ -3,8 +3,8 @@ import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 
 enviarEmail(TextEditingController nome, TextEditingController email, TextEditingController sugestao, BuildContext _context) async {
-  String _username = 'usuariofantasmausogeral@gmail.com';
-  String _password = 'Ray1234.';
+  final String _username = 'usuariofantasmausogeral@gmail.com';
+  final String _password = 'Ray1234.';
   String nomeParam = nome.text.isEmpty ? "Nome não infomado." : nome.text;
   String emailParam = email.text.isEmpty ? "Email não infomado." : email.text;
   String sugestaoParam = sugestao.text;
@@ -26,19 +26,19 @@ enviarEmail(TextEditingController nome, TextEditingController email, TextEditing
   sugestao.text = '';
 
   try {
-    final sendReport = await send(message, smtpServer);
+    // final sendReport = await send(message, smtpServer);
+    await send(message, smtpServer);
     // print('Message sent: ' + sendReport.toString());
     Scaffold.of(_context).showSnackBar(SnackBar(content: Text('Seu envio foi processado.\r\n\r\nObrigado pelo apoio.')));
-  } on MailerException catch (e) {
-    Scaffold.of(_context).showSnackBar(SnackBar(
-        content: Text('Sua requisição não foi processada no momento.\r\nTente novamente mais tarde.\r\n\r\nObrigado pelo apoio.')));
+  } on MailerException catch (ex) {
+    Scaffold.of(_context).showSnackBar(
+        SnackBar(content: Text('Sua requisição não foi processada no momento.\r\nTente novamente mais tarde.\r\n\r\nObrigado pelo apoio.')));
     // print('Message not sent.');
     // for (var p in e.problems) {
     //   print('Problem: ${p.code}: ${p.msg}');
     // }
-  } on Exception catch (e) {
+  } on Exception catch (ex) {
     Scaffold.of(_context).showSnackBar(SnackBar(
-        content:
-            Text('Sua requisição não foi processada no momento.\r\nTente novamente mais tarde.\r\n\r\nMesmo assim, obrigado pelo apoio.')));
+        content: Text('Sua requisição não foi processada no momento.\r\nTente novamente mais tarde.\r\n\r\nMesmo assim, obrigado pelo apoio.')));
   }
 }

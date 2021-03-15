@@ -107,44 +107,25 @@ PreferredSize retornaAppBarComAdicaoAtualizacao(_appBarTitle, List<DropDownListE
             padding: const EdgeInsets.all(8.0),
             child: IconButton(
               icon: Icon(Icons.refresh, color: Colors.white, size: 40.0),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text("Insira o nome:"),
-                      content: TextFormField(controller: _characterNameController),
-                      actions: <Widget>[
-                        FlatButton(
-                          child: Icon(Icons.search),
-                          onPressed: () async {
-                            getCharacterData(_characterNameController.text.replaceAll(de, para)).then((value) {
-                              var dataFromApi = value;
-                              CharacterModel character = new CharacterModel();
-                              character = character.fromMapDataApi(dataFromApi);
-                              db.fetchItemsByName("Character", dataFromApi['characters']['data']['name']).then((value2) {
-                                int idChar = CharacterModel.fromMap(value2).id;
-                                // db.updateItem("Character", character2.id, character).then((value2) {
-                                character.id = idChar;
-                                character.level = 26;
-                                db.updateItem("Character", idChar, character).then((value3) {
-                                  Navigator.of(context).pop();
-                                });
-                              });
+              onPressed: () async {
+                Scaffold.of(context).showSnackBar(SnackBar(content: Text('Atualizando status da lista.')));
+                getAllCharacterNamesAsync(db).then((values) => {
+                      for (String stringValue in values)
+                        {
+                          getCharacterData(stringValue.replaceAll(de, para)).then((value) {
+                            var dataFromApi = value;
+                            CharacterModel character = new CharacterModel();
+                            character = character.fromMapDataApi(dataFromApi);
+                            db.fetchItemsByName("Character", dataFromApi['characters']['data']['name']).then((value2) {
+                              int idChar = CharacterModel.fromMap(value2).id;
+                              // db.updateItem("Character", character2.id, character).then((value2) {
+                              character.id = idChar;
+                              //character.level = 26;
+                              db.updateItem("Character", idChar, character);
                             });
-                          },
-                        ),
-                        FlatButton(
-                          // child: Text("Fechar"),
-                          child: Icon(Icons.close),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
+                          })
+                        }
+                    });
               },
             ),
           )
